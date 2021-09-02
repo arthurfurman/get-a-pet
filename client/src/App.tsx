@@ -1,30 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC, useState } from "react";
+import { Route, Switch } from "react-router";
+import { connect } from "react-redux";
+import "./App.css";
 
-import Header from './components/header/header';
+import Header from "./components/header/header";
+import PetsContainer from "./components/pets-container/pets-container";
+import SignIn from "./components/sign-in/sign-in";
+import SignUp from "./components/sign-up/sign-up";
 
-function App() {
-  return (
-    <div className="App">
-      <Header/>
+import { User } from "./API";
 
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App: FC = () => {
+	const [user, setUser] = useState<User>({ username: "guest", isAdmin: false });
 
-export default App;
+	return (
+		<div className='App'>
+			<Header/>
+			<Switch>
+				<Route path='/login'>
+					<div className='login'>
+						<SignIn />
+						<SignUp />
+					</div>
+				</Route>
+
+				<Route path='/gallery'>
+					<p>gallery</p>
+				</Route>
+
+				<Route path='/contact'>
+					<p>contact</p>
+				</Route>
+				<Route path='/'>{user.username !== "guest" ? <PetsContainer /> : <PetsContainer />}</Route>
+			</Switch>
+		</div>
+	);
+};
+
+const mapStateToProps = (state: any) => ({
+  currentUser: state.user.currentUser,
+})
+
+export default connect(mapStateToProps)(App);

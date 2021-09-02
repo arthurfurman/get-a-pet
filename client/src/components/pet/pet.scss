@@ -1,0 +1,32 @@
+.pet {
+	height: 250px;
+  width: 250px;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	border: 1px solid black;
+	margin: 15px;
+
+	.background-image {
+    height: 100%;
+		width: 100%;
+		background-position: center;
+		background-size: cover;
+	}
+  
+	.title {
+    font-weight: bold;
+		font-size: 22px;
+		color: #4a4a4a;
+    position: absolute;
+	}
+
+  &:hover {
+    cursor: pointer;
+
+    & .background-image {
+      transform: scale(1.1);
+      transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+    }
+  }
+}

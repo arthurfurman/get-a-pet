@@ -1,9 +1,8 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /client/node_modules
 /client/.pnp
-client/.pnp.js
+/client/.pnp.js
+/server/node_modules
 
 # testing
 /client/coverage
@@ -17,7 +16,11 @@ client/.pnp.js
 /client/.env.development.local
 /client/.env.test.local
 /client/.env.production.local
+/client/.vscode
 
 /client/npm-debug.log*
 /client/yarn-debug.log*
 /client/yarn-error.log*
+
+# DB
+/mongoDB
