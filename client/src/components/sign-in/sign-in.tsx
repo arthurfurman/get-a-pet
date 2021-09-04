@@ -26,8 +26,8 @@ const SignIn: FC = ({ setCurrentUser }: any) => {
 			body: JSON.stringify({ email, password }),
 		})
 			.then((response) => response.json())
-			.then((data) => {
-				setCurrentUser(data)
+			.then((user) => {
+				setCurrentUser(user)
 			})
 			.catch((error) => {
 				console.error("Error from server:", error);

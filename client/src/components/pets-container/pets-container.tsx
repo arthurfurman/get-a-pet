@@ -1,23 +1,36 @@
-import React from 'react';
-import Pet from '../pet/pet';
-import './pets-container.scss';
+import { FC } from "react";
+import { connect } from "react-redux";
+import Pet from "../pet/pet";
+import "./pets-container.scss";
 
-export default function PetsContainer() {
-  return (
-    <div className='pets-container'>
-      <Pet title="im dog" imageUrl="../../images/sample.jpeg"/>
-      <Pet title="im dog" imageUrl="../../images/sample.jpeg"/>
-      <Pet title="im dog" imageUrl="../../images/sample.jpeg"/>
-      <Pet title="im dog" imageUrl="../../images/sample.jpeg"/>
-      <Pet title="im dog" imageUrl="../../images/sample.jpeg"/>
-      <Pet title="im dog" imageUrl="../../images/sample.jpeg"/>
-      <Pet title="im dog" imageUrl="../../images/sample.jpeg"/>
-      <Pet title="im dog" imageUrl="../../images/sample.jpeg"/>
-      <Pet title="im dog" imageUrl="../../images/sample.jpeg"/>
-      <Pet title="im dog" imageUrl="../../images/sample.jpeg"/>
-      <Pet title="im dog" imageUrl="../../images/sample.jpeg"/>
-      <Pet title="im dog" imageUrl="../../images/sample.jpeg"/>
-      <Pet title="im dog" imageUrl="../../images/sample.jpeg"/>
-    </div>
-  )
-}
+const PetsContainer: FC = ({ pets, currentUser }: any) => {
+	return (
+		<div>
+			{currentUser ? (
+				<div className='following'>
+					<h1>Followed by {currentUser.firstName}</h1>
+          <div className='pets-container'>
+          {currentUser.pets.map((pet: any) => (
+						<Pet {...pet} imageUrl='../../images/sample.jpeg' />
+					))}
+          </div>
+				</div>
+			) : null}
+			<div className='all-pets'>
+				<h1>All pets</h1>
+				<div className='pets-container'>
+					{pets.pets.map((pet: any) => (
+						<Pet {...pet} imageUrl='../../images/sample.jpeg' />
+					))}
+				</div>
+			</div>
+		</div>
+	);
+};
+
+const mapStateToProps = (state: any) => ({
+	pets: state.pets,
+	currentUser: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(PetsContainer);
