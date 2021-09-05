@@ -28,9 +28,8 @@ const Header: FC<HeaderProps> = ({ currentUser, setCurrentUser }) => {
 
 	return (
 		<div className='header-container'>
-			<div className='logo-container'>{/* TODO: add logo here */}</div>
-			<div className='options-container'>
 				<p className='greeting'>hello {currentUser ? currentUser.firstName : "guest"}</p>
+			<div className='options-container'>
 				{currentUser?.isAdmin ? (
 					<Link className='option' to='/admin'>
 						Admin Dashboard
@@ -39,12 +38,6 @@ const Header: FC<HeaderProps> = ({ currentUser, setCurrentUser }) => {
 
 				<Link className='option' to='/'>
 					Home
-				</Link>
-				<Link className='option' to='/gallery'>
-					Gallery
-				</Link>
-				<Link className='option' to='/contact'>
-					Contact us
 				</Link>
 				{currentUser ? (
 					<Link className='option' to='/login' onClick={logOut}>

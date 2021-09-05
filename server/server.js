@@ -98,20 +98,39 @@ app.get("/pets", (req, res) => {
 // 	name: "Zazu",
 // 	breed: `pitbull`,
 // 	description: `nice doggy`,
-//     age: 1
+// 	age: 1,
 // }).save();
 
 // new Pet({
 // 	name: "Fifa",
 // 	breed: "border collie",
 // 	description: "very very nice doggy",
-//   age: 2.7
+// 	age: 2.7,
 // }).save();
 
 // new Pet({
 // 	name: "Pufa",
 // 	breed: "mixed",
 // 	description: "nice nice doggy",
+// 	age: 7,
+// }).save();
+
+// new User({
+// 	email: 'a@a',
+// 	firstName: "a",
+// 	lastName: "a",
+// 	address: "a",
+// 	password: "123",
+// 	isAdmin: true,
+// }).save();
+
+// new User({
+// 	email: "b@b",
+// 	firstName: "b",
+// 	lastName: "b",
+// 	address: "b",
+// 	password: "123",
+// 	isAdmin: false,
 // }).save();
 
 app.post("/logout", (req, res) => {

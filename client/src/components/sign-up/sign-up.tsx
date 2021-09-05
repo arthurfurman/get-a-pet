@@ -55,7 +55,7 @@ const SignUp: FC = () => {
 	};
 
 	return (
-		<div>
+		<div className='sign-up'>
 			<h1>Register</h1>
 			<form onSubmit={handleSubmit}>
 				<div>

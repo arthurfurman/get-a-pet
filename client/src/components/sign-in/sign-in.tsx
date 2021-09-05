@@ -37,7 +37,7 @@ const SignIn: FC = ({ setCurrentUser }: any) => {
 	};
 
 	return (
-		<div>
+		<div className='sign-in'>
 			<h1>Sign in</h1>
 			<form
 				onSubmit={handleSubmit}
