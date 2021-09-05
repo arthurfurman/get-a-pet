@@ -11,17 +11,19 @@ type PetProps = {
 	age: number;
 	isAdopted: boolean;
 	imageUrl: string;
+	isFollowing: boolean;
+	isLoggedIn: boolean;
 };
 
-const Pet: FC<PetProps> = ({_id, name, breed, description, dateFound, age, isAdopted, imageUrl}: PetProps): JSX.Element => {
+const Pet: FC<PetProps> = ({_id, name, breed, description, dateFound, age, isAdopted, imageUrl, isFollowing, isLoggedIn}: PetProps): JSX.Element => {
 
 	const clickHandler = () => {
-		fetch("http://localhost:3001/follow-pet", {
+		fetch(`http://localhost:3001/${isFollowing ? 'unfollow' : 'follow'}`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ _id }),
+			body: JSON.stringify({ petId: _id }),
 		})
 			.then((response) => response.json())
 			.then((data) => {
@@ -35,7 +37,8 @@ const Pet: FC<PetProps> = ({_id, name, breed, description, dateFound, age, isAdo
 	return (
 		<div className='pet'>
 			<h1 className='name'>{name}</h1>
-			<div className='background-image' onClick={clickHandler} style={{ backgroundImage: `url(${background})` }}></div>
+			<div className='background-image' onClick={isLoggedIn ? clickHandler : undefined } style={{ backgroundImage: `url(${background})` }}></div>
+			<button className="follow-banner">{isFollowing ? "unfollow" : "follow"}</button>
 		</div>
 	);
 }

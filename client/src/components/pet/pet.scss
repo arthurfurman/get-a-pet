@@ -2,8 +2,6 @@
 	height: 250px;
   width: 250px;
 	display: flex;
-	align-items: flex-start;
-	justify-content: flex-start;
 	border: 1px solid black;
 	margin: 15px;
 
@@ -21,12 +19,23 @@
     position: absolute;
 	}
 
+	.follow-banner {
+		border: none;
+		width: 200px;
+		height: 50px;
+		font-size: 15px;
+		font-weight: bolder;
+		position: absolute;
+		opacity: 0.85;
+		display: none;
+		justify-content: center;
+	}
+
   &:hover {
     cursor: pointer;
 
-    & .background-image {
-      transform: scale(1.1);
-      transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+    & .follow-banner {
+			display: flex;
     }
   }
 }

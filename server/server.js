@@ -1,11 +1,9 @@
 const express = require("express");
 const cors = require("cors");
-const bcrypt = require("bcrypt");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const passport = require("./passport-config");
 const path = require("path");
-const fs = require("fs");
 
 const connectToMongo = require("./db");
 connectToMongo();
@@ -35,6 +33,15 @@ app.use(passport.session());
 app.post("/login", passport.authenticate("local"), (req, res) => {
 	const { password, _id, __v, ...response } = req.user.toObject();
 	res.json(response);
+});
+
+app.get("/loggeduser", (req, res) => {
+	if (req.isAuthenticated()) {
+		const { password, _id, __v, ...response } = req.user.toObject();
+		res.json(response);
+	} else {
+		res.send(null);
+	}
 });
 
 app.post("/register", (req, res) => {
@@ -72,23 +79,34 @@ app.post("/add-pet", (req, res) => {
 		.catch((err) => res.status(409).json(err));
 });
 
-app.post("/follow-pet", (req, res) => {
-	User.findOneAndUpdate({ _id: req.user._id }, { $push: { pets: { _id: req.body._id } } }, { new: true })
+app.delete("/pets/:petId", (req, res) => {
+	const petId = req.params.petId;
+	Pet.findByIdAndRemove(petId).catch((err) => res.status(409).json(err));
+
+	User.updateMany({}, { $pullAll: { pets: [petId] } })
 		.then(() => res.send("OK"))
 		.catch((err) => res.status(409).json(err));
 });
 
-// app.post("/add-file", (req, res) => {
-// 	const { file } = req.body;
-//   fs.writeFile("/tmp/test", file, function(err) {
-//     if(err) {
-//         return console.log(err);
-//     }
-//     console.log("The file was saved!");
-//     res.send("OK");
-// });
+app.post("/follow", (req, res) => {
+	User.findOneAndUpdate({ _id: req.user._id }, { $addToSet: { pets: [req.body.petId] } }).catch((err) =>
+		res.status(409).json(err)
+	);
 
-// });
+	Pet.findOneAndUpdate({ _id: req.body.petId }, { $addToSet: { users: [req.user._id] } })
+		.then(() => res.send("OK"))
+		.catch((err) => res.status(409).json(err));
+});
+
+app.post("/unfollow", (req, res) => {
+	User.findOneAndUpdate({ _id: req.user._id }, { $pullAll: { pets: [req.body.petId] } }).catch((err) =>
+		res.status(409).json(err)
+	);
+
+	Pet.findOneAndUpdate({ _id: req.body.petId }, { $pullAll: { users: [req.user._id] } })
+		.then(() => res.send("OK"))
+		.catch((err) => res.status(409).json(err));
+});
 
 app.get("/pets", (req, res) => {
 	Pet.find({}).then((pets) => res.json(pets));
@@ -96,8 +114,8 @@ app.get("/pets", (req, res) => {
 
 // new Pet({
 // 	name: "Zazu",
-// 	breed: `pitbull`,
-// 	description: `nice doggy`,
+// 	breed: "pitbull",
+// 	description: "nice doggy",
 // 	age: 1,
 // }).save();
 
@@ -138,8 +156,7 @@ app.post("/logout", (req, res) => {
 	res.json({ loggedOut: true });
 });
 
-// TODO: place build path in env
-const clientBuildPath = "C:\\Users\\Arthur\\Projects\\get-a-pet\\client\\build";
+const clientBuildPath = path.dirname(__dirname) + "\\client\\build";
 if (clientBuildPath) {
 	const static = express.static(clientBuildPath);
 

@@ -28,19 +28,10 @@ const Header: FC<HeaderProps> = ({ currentUser, setCurrentUser }) => {
 
 	return (
 		<div className='header-container'>
-				<p className='greeting'>hello {currentUser ? currentUser.firstName : "guest"}</p>
+			<p className='greeting'>hello {currentUser ? currentUser.firstName : "guest"}</p>
 			<div className='options-container'>
-				{currentUser?.isAdmin ? (
-					<Link className='option' to='/admin'>
-						Admin Dashboard
-					</Link>
-				) : null}
-
-				<Link className='option' to='/'>
-					Home
-				</Link>
 				{currentUser ? (
-					<Link className='option' to='/login' onClick={logOut}>
+					<Link className='option' to='/' onClick={logOut}>
 						Logout
 					</Link>
 				) : (
