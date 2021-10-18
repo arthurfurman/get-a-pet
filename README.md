@@ -7,6 +7,7 @@ Managers of the platform can add and remove pets, change data of pets and view s
 ## Tech stack
 
 **Front end**: React.js with TypeScript.
+
 **Back end**: Node.js with JavaScript, Express.js, MongoDB with Mongoose, Passport.js for authentication.
 
 ## How to deploy
