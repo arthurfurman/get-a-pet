@@ -5,7 +5,7 @@ import PetsContainerAdmin from "../pets-container-admin/pets-container-admin";
 
 const AdminDashboard: FC = () => {
 	return (
-		<div>
+		<div className='admin-dashboard'>
       <h1>Admin Dashboard</h1>
 			<AddPet/>
 			<PetsContainerAdmin/>
