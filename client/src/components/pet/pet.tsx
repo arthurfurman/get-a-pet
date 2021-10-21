@@ -38,7 +38,7 @@ const Pet: FC<PetProps> = ({_id, name, breed, description, dateFound, age, isAdo
 		<div className='pet'>
 			<h1 className='name'>{name}</h1>
 			<div className='background-image' onClick={isLoggedIn ? clickHandler : undefined } style={{ backgroundImage: `url(${background})` }}></div>
-			<button className="follow-banner">{isFollowing ? "unfollow" : "follow"}</button>
+			<button className="follow-banner">{isFollowing ? "Unfollow" : "Follow"}</button>
 		</div>
 	);
 }

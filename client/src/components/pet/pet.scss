@@ -17,18 +17,21 @@
 		font-size: 22px;
 		color: #4a4a4a;
     position: absolute;
+		align-self: flex-start;
 	}
 
 	.follow-banner {
 		border: none;
-		width: 200px;
+		width: 248px;
 		height: 50px;
 		font-size: 15px;
 		font-weight: bolder;
 		position: absolute;
 		opacity: 0.85;
 		display: none;
+		align-self: center;
 		justify-content: center;
+		align-items: center;
 	}
 
   &:hover {
