@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { connect } from "react-redux";
 import { addPet } from "../../redux/pets/pets.actions";
 
-const AddPet: FC = () => {
+const AddPet: FC = ({ addPet }: any) => {
 	const [name, setName] = useState("");
 	const [breed, setBreed] = useState("");
   const [age, setAge] = useState(0);
