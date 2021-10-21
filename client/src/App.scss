@@ -20,10 +20,19 @@ form {
   margin: 15px;
 }
 
-button {
+button, input[type=submit] {
   &:hover {
-    cursor: pointer;
+    background-color: white;
+    color: black;
   }
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+  font-size: 15px;
+  text-transform: uppercase;
+  height: 30px;
+  margin: 10px;
+  cursor: pointer;
 }
 
 * {
