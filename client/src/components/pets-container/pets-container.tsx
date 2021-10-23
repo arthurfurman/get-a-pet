@@ -11,7 +11,7 @@ const PetsContainer: FC = ({ pets, currentUser }: any) => {
 					<h2>Following</h2>
           <div className='pets-container'>
           {currentUser.pets.map((pet: any, index: number) => (
-						<Pet key={index} {...pet} isFollowing imageUrl='../../images/sample.jpeg' />
+						<Pet key={index} {...pet} imageUrl='../../images/sample.jpeg' />
 					))}
           </div>
 				</div>
@@ -22,7 +22,7 @@ const PetsContainer: FC = ({ pets, currentUser }: any) => {
 				<h2>All pets</h2>
 				<div className='pets-container'>
 					{pets.pets.map((pet: any, index: number) => (
-						<Pet key={index} {...pet} isFollowing={false} imageUrl='../../images/sample.jpeg' />
+						<Pet key={index} {...pet} imageUrl='../../images/sample.jpeg' />
 					))}
 				</div>
 			</div>
