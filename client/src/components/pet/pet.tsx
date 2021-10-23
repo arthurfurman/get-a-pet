@@ -1,6 +1,7 @@
-import React, { FC } from "react";
+import { FC } from "react";
+import { connect } from "react-redux";
 import "./pet.scss";
-import background from '../../images/sample.jpeg';
+import background from "../../images/sample.jpeg";
 
 type PetProps = {
 	_id: string;
@@ -12,36 +13,53 @@ type PetProps = {
 	isAdopted: boolean;
 	imageUrl: string;
 	isFollowing: boolean;
-	isLoggedIn: boolean;
+	currentUser: any;
 };
 
-const Pet: FC<PetProps> = ({_id, name, breed, description, dateFound, age, isAdopted, imageUrl, isFollowing, isLoggedIn}: PetProps): JSX.Element => {
-
+const Pet: FC<PetProps> = ({
+	_id,
+	name,
+	breed,
+	description,
+	dateFound,
+	age,
+	isAdopted,
+	imageUrl,
+	isFollowing,
+	currentUser,
+}: PetProps): JSX.Element => {
 	const clickHandler = () => {
-		fetch(`http://localhost:3001/${isFollowing ? 'unfollow' : 'follow'}`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ petId: _id }),
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				console.log(data);
+		if (!!currentUser) {
+			fetch(`http://localhost:3001/${isFollowing ? "unfollow" : "follow"}`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ petId: _id }),
 			})
-			.catch((error) => {
-				console.error("Error from server:", error);
-			});
-	}
+				.then((response) => response.json())
+				.then((data) => {
+					console.log(data);
+				})
+				.catch((error) => {
+					console.error("Error from server:", error);
+				});
+		} else {
+			console.log("not logged in");
+		}
+	};
 
 	return (
-		<div className='pet'>
+		<div className='pet' onClick={clickHandler}>
 			<h1 className='name'>{name}</h1>
-			<div className='background-image' onClick={isLoggedIn ? clickHandler : undefined } style={{ backgroundImage: `url(${background})` }}></div>
-			<button className="follow-banner">{isFollowing ? "Unfollow" : "Follow"}</button>
+			<div className='background-image' style={{ backgroundImage: `url(${background})` }} />
+			<div className='follow-banner'>{isFollowing ? "Unfollow" : "Follow"}</div>
 		</div>
 	);
-}
+};
 
+const mapStateToProps = (state: any) => ({
+	currentUser: state.user.currentUser,
+});
 
-export default Pet;
+export default connect(mapStateToProps)(Pet);
